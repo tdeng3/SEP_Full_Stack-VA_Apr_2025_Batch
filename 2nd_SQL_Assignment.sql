@@ -18,15 +18,15 @@ GO
         SELECT COUNT(pp.ProductID) as SumOfTotal
         FROM Production.Product pp
 
-        SELECT COUNT(DISTINCT pp.ProductNumber) as SumOfTotal
-        FROM Production.Product pp
+         --  SELECT COUNT(DISTINCT pp.ProductNumber) as SumOfTotal
+         --  FROM Production.Product pp
 
     -- 2. Write a query that retrieves the number of products in the Production.
         -- Product table that are included in a subcategory. 
         -- The rows that have NULL in column ProductSubcategoryID are considered to not be a part of any subcategory.
 
-        SELECT *
-        FROM Production.Product pp
+         --  SELECT *
+         --  FROM Production.Product pp
 
         SELECT pp.ProductNumber, pp.ProductSubcategoryID
         FROM Production.Product pp
@@ -63,8 +63,8 @@ GO
 
             -----------        ----------
 
-        SELECT *
-        FROM Production.ProductInventory ppi
+         --  SELECT *
+         --  FROM Production.ProductInventory ppi
 
         SELECT ppi.ProductID, SUM(ppi.Quantity) AS TheSum
         FROM Production.ProductInventory ppi
@@ -80,8 +80,8 @@ GO
 
         ----------   -----------        -----------
 
-        SELECT *
-        FROM Production.ProductInventory ppi
+         --  SELECT *
+         --  FROM Production.ProductInventory ppi
 
         SELECT ppi.Shelf, ppi.ProductID, SUM(ppi.Quantity) AS TheSum
         FROM Production.ProductInventory ppi
@@ -92,8 +92,8 @@ GO
     -- 8. Write the query to list the average quantity for products 
         -- where column LocationID has the value of 10 from the table Production.ProductInventory table.
 
-        SELECT *
-        FROM Production.ProductInventory ppi
+         --  SELECT *
+         --  FROM Production.ProductInventory ppi
 
         SELECT ppi.ProductID, AVG(ppi.Quantity) AS TheAVG
         FROM Production.ProductInventory ppi
@@ -167,11 +167,11 @@ GO
 
     -- 14. List all Products that has been sold at least once in last 27 years.
 
-        SELECT *
-        FROM Orders o
+         --  SELECT *
+         --  FROM Orders o
 
-        SELECT *
-        FROM [Order Details] od
+         --  SELECT *
+         --  FROM [Order Details] od
 
         SELECT DISTINCT p.ProductName, od.UnitPrice, o.OrderDate
         FROM Products p JOIN [Order Details] od ON P.ProductID = od.ProductID 
@@ -180,9 +180,9 @@ GO
 
     -- 15. List top 5 locations (Zip Code) where the products sold most.
 
-        SELECT * 
-        FROM Products p JOIN [Order Details] od ON P.ProductID = od.ProductID 
-                        JOIN Orders o ON od.OrderID = o.OrderID
+         --  SELECT * 
+         --  FROM Products p JOIN [Order Details] od ON P.ProductID = od.ProductID 
+                        J --  OIN Orders o ON od.OrderID = o.OrderID
 
         SELECT Top 5 o.ShipPostalCode, SUM(od.Quantity) AS [Total Sold]
         FROM Products p JOIN [Order Details] od ON P.ProductID = od.ProductID 
@@ -217,8 +217,8 @@ GO
 
     -- 19. List the names of customers who placed orders after 1/1/98 with order date.
 
-        SELECT o.OrderDate
-        FROM Orders o
+         --  SELECT o.OrderDate
+         --  FROM Orders o
 
         SELECT c.ContactName, o.OrderDate
         FROM Customers c JOIN Orders o ON c.CustomerID = o.CustomerID
@@ -237,11 +237,11 @@ GO
 
     -- 21. Display the names of all customers  along with the  count of products they bought
 
-        SELECT c.ContactName
-        FROM Customers c
+         --  SELECT c.ContactName
+         --  FROM Customers c
 
         SELECT c.ContactName, COUNT(p.ProductName) AS [Products they bought]
-        FROM Products p JOIN [Order Details] od ON P.ProductID = od.ProductID 
+        FROM Products p JOIN [Order Details] od ON p.ProductID = od.ProductID 
                         JOIN Orders o ON od.OrderID = o.OrderID 
                         JOIN Customers c ON c.CustomerID = o.CustomerID
         GROUP BY c.ContactName
@@ -249,7 +249,14 @@ GO
         
     -- 22. Display the customer ids who bought more than 100 Products with count of products.
 
-        
+        --FROM-->WHERE-->GROUP BY-->HAVING-->SELECT-->DISTINCE-->ORDER BY
+
+        SELECT o.CustomerID, COUNT(p.ProductName) AS [Products they bought]
+        FROM Products p JOIN [Order Details] od ON P.ProductID = od.ProductID 
+                        JOIN Orders o ON od.OrderID = o.OrderID 
+        GROUP BY o.CustomerID
+        HAVING COUNT(p.ProductName) > 100
+        ORDER BY 2 DESC
 
     -- 23. List all of the possible ways that suppliers can ship their products. Display the results as below
 
@@ -257,11 +264,54 @@ GO
 
         ---------------------------------            ----------------------------------
 
+        SELECT DISTINCT s1.CompanyName AS [Supplier Company Name], s2.CompanyName AS [Shipping Company Name]
+        FROM Shippers s2 JOIN Orders o ON o.ShipVia = s2.ShipperID 
+                         JOIN [Order Details] od ON o.OrderID = od.OrderID
+                         JOIN Products p ON p.ProductID = od.ProductID 
+                         JOIN Suppliers s1 ON s1.SupplierID = p.SupplierID
+        ORDER BY [Supplier Company Name]
+        
+
     -- 24. Display the products order each day. Show Order date and Product Name.
+
+         --  SELECT *
+         --  FROM Products
+
+         --  SELECT *
+         --  FROM Orders
+
+        SELECT o.OrderDate, p.ProductName
+        FROM Orders o JOIN [Order Details] od ON o.OrderID = od.OrderID
+                      JOIN Products p ON od.ProductID = p.ProductID
+        ORDER BY o.OrderDate
+
 
     -- 25. Displays pairs of employees who have the same job title.
 
+        SELECT e1.Title, e1.FirstName + ' ' + e1.LastName AS Employee1, e2.FirstName + ' ' + e2.LastName AS Employee2
+        FROM Employees e1 JOIN Employees e2 ON e1.Title = e2.Title
+        WHERE e1.EmployeeID != e2.EmployeeID
+        ORDER BY e1.Title
+
     -- 26. Display all the Managers who have more than 2 employees reporting to them.
+
+         --  SELECT *
+         --  FROM Employees
+
+         --  WITH EmpHierarchyCTE
+         --  AS(
+             --  SELECT e.EmployeeID, e.FirstName, e.ReportsTo, 1 lvl
+             --  FROM Employees e
+             --  WHERE ReportsTo IS NULL
+             --  UNION ALL
+             --  SELECT e1.EmployeeID, e1.FirstName,e1.ReportsTo, cte.lvl + 1
+             --  FROM Employees e1 JOIN EmpHierarchyCTE cte ON e1.ReportsTo = cte.EmployeeID
+         --  )
+         --  Select * FROM EmpHierarchyCTE
+
+        SELECT manager.FirstName + ' ' + manager.LastName AS Manager, COUNT(e.ReportsTo) AS [Num of employee reporting to this person]
+        FROM Employees manager JOIN Employees e ON manager.EmployeeID = e.ReportsTo
+        GROUP BY manager.FirstName, manager.LastName
 
     -- 27. Display the customers and suppliers by city. The results should have the following columns
 
@@ -272,3 +322,12 @@ GO
         -- Contact Name,
 
         -- Type (Customer or Supplier)
+
+        --  SELECT *
+        --  FROM Customers
+
+        SELECT c.City, c.CompanyName AS Name, c.ContactName,'Customer' AS Type
+        FROM Customers c
+        UNION
+        SELECT s.City, s.CompanyName AS Name, s.ContactName, 'Supplier' AS Type
+        FROM Suppliers s
