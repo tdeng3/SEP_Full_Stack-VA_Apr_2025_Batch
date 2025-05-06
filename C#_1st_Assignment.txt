@@ -1,0 +1,42 @@
+01 Introduction to C# and Data Types
+Understanding Data Types
+Test your Knowledge
+
+1. What type would you choose for the following “numbers”?
+    A person’s telephone number          string
+    A person’s height                    double
+    A person’s age                       int
+    A person’s gender                    string
+    A person’s salary                    decimal
+    A book’s ISBN                        string
+    A book’s price                       decimal
+    A book’s shipping weight             double
+    A country’s population               long
+    The number of stars in the universe  long
+    The number of employees in each of the small or medium businesses in the
+    United Kingdom (up to about 50,000 employees per business) int
+
+2. What are the difference between value type and reference type variables? What is
+boxing and unboxing?
+
+    1. Value type will directly hold the value while reference type will hold the memory address or reference of the value. 
+    2. Value type will be stored in the stack memory while reference type will be stored in the heap memory. 
+    3. Value type will not be collected by the garbage collector but the reference type will be collected by garbage collector. 
+    4. The value type can be created by struct or enum but reference type can be created by class, interface, delegates or array. 
+    5. Value type can not accept any null value while reference type can accept null values. 
+    
+    Boxing: an operation that converts a value type to the reference type(object type)
+    Unboxing: an operation that converts a reference type(object type) to the value type
+    
+    int i = 10;
+    object o = i; //boxing
+    int j = (int) o; //unboxing
+
+3. What is meant by the terms managed resource and unmanaged resource in .NET
+    Objects created using C# classes (string, List<T>, FileStream, etc.)
+    Memory allocated by new
+    Resources handled by the garbage collector.
+
+4. Whats the purpose of Garbage Collector in .NET?
+    The purpose is to automatically manage memory by reclaiming unused objects, 
+    so developers don't have to manually free memory.
