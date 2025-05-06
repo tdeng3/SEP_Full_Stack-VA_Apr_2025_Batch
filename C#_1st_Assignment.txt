@@ -40,3 +40,110 @@ boxing and unboxing?
 4. Whats the purpose of Garbage Collector in .NET?
     The purpose is to automatically manage memory by reclaiming unused objects, 
     so developers don't have to manually free memory.
+
+
+
+
+
+
+
+01 Introduction to C# and Data Types
+Understanding Data Types
+Test your Knowledge
+
+1. What type would you choose for the following “numbers”?
+    A person’s telephone number          string
+    A person’s height                    double
+    A person’s age                       int
+    A person’s gender                    string
+    A person’s salary                    decimal
+    A book’s ISBN                        string
+    A book’s price                       decimal
+    A book’s shipping weight             double
+    A country’s population               long
+    The number of stars in the universe  long
+    The number of employees in each of the small or medium businesses in the
+    United Kingdom (up to about 50,000 employees per business) int
+
+2. What are the difference between value type and reference type variables? What is
+boxing and unboxing?
+
+    1. Value type will directly hold the value while reference type will hold the memory address or reference of the value. 
+    2. Value type will be stored in the stack memory while reference type will be stored in the heap memory. 
+    3. Value type will not be collected by the garbage collector but the reference type will be collected by garbage collector. 
+    4. The value type can be created by struct or enum but reference type can be created by class, interface, delegates or array. 
+    5. Value type can not accept any null value while reference type can accept null values. 
+    
+    Boxing: an operation that converts a value type to the reference type(object type)
+    Unboxing: an operation that converts a reference type(object type) to the value type
+    
+    int i = 10;
+    object o = i; //boxing
+    int j = (int) o; //unboxing
+
+3. What is meant by the terms managed resource and unmanaged resource in .NET
+    Objects created using C# classes (string, List<T>, FileStream, etc.)
+    Memory allocated by new
+    Resources handled by the garbage collector.
+
+4. Whats the purpose of Garbage Collector in .NET?
+    The purpose is to automatically manage memory by reclaiming unused objects, 
+    so developers don't have to manually free memory.
+    
+Controlling Flow and Converting Types
+Test your Knowledge
+1. What happens when you divide an int variable by 0?
+    It throws DivideByZeroException
+    "Unhandled exception. System.DivideByZeroException: Attempted to divide by zero."
+
+2. What happens when you divide a double variable by 0?
+    It works fine.
+    When a double positive number divides by 0, the result is positive infinity.
+    When a double negative number divides by 0, the result is negative infinity.
+
+
+3. What happens when you overflow an int variable, that is, set it to a value beyond its
+range?
+    It doesn't throw an error.
+    The output is int.MinValue that is -2,147,483,648.
+
+4. What is the difference between x = y++; and x = ++y;?
+    int y = 5;
+    int x = y++;  // x = 5, y = 6
+    First, x gets the current value of y.
+    Then, y is incremented by 1.
+    
+    int y = 5;
+    int x = ++y;  // y = 6, x = 6
+    First, y is incremented by 1.
+    Then, x gets the new value of y.
+    
+5. What is the difference between break, continue, and return when used inside a loop
+statement?
+    In a loop, break stops the loop right away and jumps out of it, 
+    continue skips the current round and moves to the next one, 
+    and return stops the whole method completely, possibly sending back a value if needed.
+
+6. What are the three parts of a for statement and which of them are required?
+    for (i=0; i<4; i++){
+        Console.WriteLine(i);
+    }
+    the initialization i=0
+    the condition i<4
+    the increment i++
+    the condition is required, but the initialization and increment are optional. 
+
+7. What is the difference between the = and == operators?
+    x = 3   It is used to assign a value to a variable. 
+    x == 3  It is used to compare two values to see if they are equal.
+
+8. Does the following statement compile? for ( ; true; ) ;
+    Yes, it compiles, but it is an infinite loop because true is always true.
+
+9. What does the underscore _ represent in a switch expression?
+    It behaves like a default case.
+    It handles any value that hasn't been explicitly handled by other cases.
+
+10. What interface must an object implement to be enumerated over by using the foreach
+statement?
+    IEnumerable interface
