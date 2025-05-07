@@ -1,0 +1,33 @@
+Assignment 02 Arrays and Strings.pdf
+
+Here are the answers to the definition questions.
+
+02 Arrays and Strings
+Test your Knowledge
+1. When to use String vs. StringBuilder in C# ?
+    String is immutable which means the string content is not expected to change.
+    StringBuilder is mutable. It modifies the content in place.
+    
+2. What is the base class for all arrays in C#?
+    System.Array
+    All arrays (e.g., int[], string[], double[,], etc.) implicitly inherit from System.Array.
+
+3. How do you sort an array in C#?
+    We can use Array.sort() method.
+
+4. What property of an array object can be used to get the total number of elements in
+an array?
+    int[] numbers = {1,2,3,4,5}
+    int totalLength = numbers.Length
+    the totalLength will be 5.
+
+5. Can you store multiple data types in System.Array?
+    If the array type is object[], then yes.
+
+6. What’s the difference between the System.Array.CopyTo() and System.Array.Clone()?
+    System.Array.CopyTo() creates a new array and copy all items of the original array.
+    If you change cloned array, original array stays the same.
+    
+    System.Array.Clone() won't create a new array. 
+    It put the original array into new target with a start index or positions.
+    
