@@ -1,4 +1,10 @@
-// See https://aka.ms/new-console-template for more information
+// Create a project named 02UnderstandingTypes.
+
+// Copy code from C#_1st_Assignment_Program.cs into Program.cs.
+
+// Create Assignments.cs and copy relevant code from C#_1st_Assignment_Assignments.cs.
+
+// Ensure Program.cs can use Assignments.cs.
 
 
 using _02UnderstandingTypes;
